@@ -14,7 +14,7 @@ export default function TopBar() {
       <div className="TopBar">
         <button onClick={sideBar}>SideBar</button>
 
-        <h1>Seotjuu's Blog</h1>
+        <h1>Blog</h1>
       </div>
     </>
   );
