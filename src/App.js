@@ -18,7 +18,8 @@ export default function App() {
       {location !== "/" ? <Bar /> : null}
 
       <Routes>
-        <Route path="/" element={<Login />}></Route>
+        {/* Seotjuu.GitHub.io/Blog가 기본. */}
+        <Route path="/Blog" element={<Login />}></Route>
         <Route path="/main" element={<Main />}></Route>
       </Routes>
     </>
