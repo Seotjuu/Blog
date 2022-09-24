@@ -1,8 +1,6 @@
 # Blog
 Seotjuu's Blog : BOJ, React Project ...
 
-실질적인 파일 고치는 곳 Build 전 상태
-
 ## View File
 
 ### `Clone -> npm i -> npm start`
