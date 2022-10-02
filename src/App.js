@@ -2,7 +2,7 @@ import "./App.css";
 import "./css/Main.css";
 import "./css/Sign.css";
 import "./css/Bar.css";
-import Bar from "./pages/Bar";
+import { Bar } from "./pages/Bar";
 import Main from "./pages/Main";
 import Login from "./pages/Sign/Login";
 
@@ -15,13 +15,15 @@ export default function App() {
   return (
     <>
       {/* 지금 Url이 Login 페이지이면 Bar 안 나옴 */}
-      {location !== "/" ? <Bar /> : null}
+      {location !== "/Blog" ? <Bar /> : null}
 
-      <Routes>
-        {/* Seotjuu.GitHub.io/Blog가 기본. */}
-        <Route path="/Blog" element={<Login />}></Route>
-        <Route path="/main" element={<Main />}></Route>
-      </Routes>
+      <div>
+        <Routes>
+          {/* Seotjuu.GitHub.io/Blog가 기본. */}
+          <Route path="/Blog" element={<Login />}></Route>
+          <Route path="/main" element={<Main />}></Route>
+        </Routes>
+      </div>
     </>
   );
 }

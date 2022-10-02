@@ -1,14 +1,24 @@
 // Blog Main 화면
 
-// import { faCamera } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-/* <FontAwesomeIcon icon={faCamera} size="3x" /> */
+import { SideBar } from "./Bar";
 
 export default function Main() {
   return (
     <>
-      <h2>Blog 메인 화면</h2>
+      <div style={{ display: "flex" }}>
+        <SideBar />
+        <div className="" style={{ margin: "1% 30%", border: "solid 1px" }}>
+          <h2>Seotjuu's Blog</h2>
+
+          <a>Seotjuu 님이 운영중인 블로그입니다!</a>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam quod
+            architecto, sed maiores temporibus vitae itaque fuga eum libero
+            soluta recusandae eveniet similique. Temporibus laudantium omnis
+            sint minus a quis?
+          </p>
+        </div>
+      </div>
     </>
   );
 }
