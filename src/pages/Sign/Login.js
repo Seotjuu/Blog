@@ -17,7 +17,6 @@ export default function Login() {
 
   // button 누르면 submit 실행됨
   const onSubmit = (data) => {
-    console.log(data);
     if (data.id === "tester" && data.pw === "tester123@") {
       window.location.replace("/main");
     } else {

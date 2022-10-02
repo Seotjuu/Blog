@@ -7,7 +7,7 @@ export default function Main() {
     <>
       <div style={{ display: "flex" }}>
         <SideBar />
-        <div className="" style={{ margin: "1% 30%", border: "solid 1px" }}>
+        <div style={{ margin: "1% 30%", border: "solid 1px" }}>
           <h2>Seotjuu's Blog</h2>
 
           <a>Seotjuu 님이 운영중인 블로그입니다!</a>
