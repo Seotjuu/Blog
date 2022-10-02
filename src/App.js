@@ -11,7 +11,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 export default function App() {
   // useLocation 정보
   const location = useLocation().pathname;
-
+  console.log();
   return (
     <>
       {/* 지금 Url이 Login 페이지이면 Bar 안 나옴 */}
@@ -19,9 +19,8 @@ export default function App() {
 
       <div>
         <Routes>
-          {/* Seotjuu.GitHub.io/Blog가 기본. */}
           <Route path="/" element={<Login />}></Route>
-          <Route path="/Main" element={<Main />}></Route>
+          <Route path="/main" element={<Main />}></Route>
         </Routes>
       </div>
     </>

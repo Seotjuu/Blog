@@ -4,9 +4,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function Login() {
   const { register, handleSubmit } = useForm();
+  const [main, setMain] = useState();
 
   // Enter 키 누르면 onSubmit 되는 함수
   const onCheckEnter = (e) => {
@@ -18,7 +21,8 @@ export default function Login() {
   // button 누르면 submit 실행됨
   const onSubmit = (data) => {
     if (data.id === "tester" && data.pw === "tester123@") {
-      window.location.replace("/main");
+      // 입력창에 로그인 조건이 맞을 시 링크로 가야함
+      setMain("/Main");
     } else {
       Swal.fire({
         icon: "warning",
@@ -41,7 +45,13 @@ export default function Login() {
         >
           <input type="text" placeholder="tester" {...register("id")} />
           <input type="password" placeholder="tester123@" {...register("pw")} />
-          <button type="submit">Login</button>
+          <Link to="/Main">
+            <button
+              type="submit" // 버튼을 누르면 조건 없이 Main 링크 이동
+            >
+              로그인
+            </button>
+          </Link>
         </form>
       </div>
     </>
