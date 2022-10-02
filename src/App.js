@@ -15,13 +15,13 @@ export default function App() {
   return (
     <>
       {/* 지금 Url이 Login 페이지이면 Bar 안 나옴 */}
-      {location !== "/Blog" ? <Bar /> : null}
+      {location !== "/" ? <Bar /> : null}
 
       <div>
         <Routes>
           {/* Seotjuu.GitHub.io/Blog가 기본. */}
-          <Route path="/Blog" element={<Login />}></Route>
-          <Route path="/main" element={<Main />}></Route>
+          <Route path="/" element={<Login />}></Route>
+          <Route path="/Main" element={<Main />}></Route>
         </Routes>
       </div>
     </>
