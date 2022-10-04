@@ -21,7 +21,7 @@
   position: absolute;
   width: 5%;
   left: 15%;
-  top: 15%;
+  top: 30%;
 }
 
 .SideBar ul {
@@ -32,4 +32,8 @@
 .SideBar ul li {
   font-size: small;
   padding-bottom: 5%;
+}
+
+.SideBar ul li Link{
+  text-decoration: none;
 }
