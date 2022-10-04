@@ -1,23 +1,19 @@
 // Blog Main 화면
-
-import { SideBar } from "./Bar";
+import Content from "./Cmm/Content";
+import { Link } from "react-router-dom";
 
 export default function Main() {
   return (
     <>
-      <div style={{ display: "flex" }}>
-        <SideBar />
-        <div style={{ margin: "1% 30%", border: "solid 1px" }}>
-          <h2>Seotjuu's Blog</h2>
-
-          <a>Seotjuu 님이 운영중인 블로그입니다!</a>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam quod
-            architecto, sed maiores temporibus vitae itaque fuga eum libero
-            soluta recusandae eveniet similique. Temporibus laudantium omnis
-            sint minus a quis?
-          </p>
-        </div>
+      <div className="content">
+        <Content/>
+        <nav>전체 보기</nav>
+        <ul>
+          <li><Link to="/list1">React</Link></li>
+          <li><Link to="/list2">JavaScript</Link></li>
+          <li><Link to="/list3">Html</Link></li>
+          <li><Link to="/list4">Css</Link></li>
+        </ul>
       </div>
     </>
   );

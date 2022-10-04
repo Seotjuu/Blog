@@ -1,16 +1,15 @@
 // Sign / Login
 // 로그인 페이지
 
-import React from "react";
+import React, {useState} from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 
 export default function Login() {
   const { register, handleSubmit } = useForm();
   const [main, setMain] = useState();
-
+  console.log(main);
   // Enter 키 누르면 onSubmit 되는 함수
   const onCheckEnter = (e) => {
     if (e.key === "Enter") {

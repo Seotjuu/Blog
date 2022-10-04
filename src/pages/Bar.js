@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import {
   faMagnifyingGlass,
@@ -27,18 +28,20 @@ export function Bar() {
 }
 
 export function SideBar() {
+  const [list, setList] = useState("");
+
   return (
     <>
       <div className="SideBar">
         <div style={{ borderBottom: "1px solid", fontWeight: "bold" }}>
-          목록
+          작성목록
         </div>
         <ul>
-          <li>React</li>
-          <li>JavaScript</li>
-          <li>Html</li>
-          <li>Css</li>
-          <li>C</li>
+          <li><Link to="/Main">Home</Link></li>
+          <li><Link to="/list1">React</Link></li>
+          <li><Link to="/list2">JavaScript</Link></li>
+          <li><Link to="/list3">Html</Link></li>
+          <li><Link to="/list4">Css</Link></li>
         </ul>
       </div>
     </>
