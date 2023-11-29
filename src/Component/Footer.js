@@ -15,11 +15,3 @@ export default function Footer() {
     </>
   );
 }
-
-// .footer {
-//   margin-top: 10%;
-//   padding-top: 10px;
-//   border-top: solid 1px #E9ECEF;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
