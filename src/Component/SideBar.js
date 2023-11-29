@@ -1,33 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import {
-  faMagnifyingGlass,
-  faCircleUser,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-export function Bar() {
-  return (
-    <>
-      <div className="Bar">
-        <nav>
-          <span>Blog</span>
-          <div>
-            <a>
-              <FontAwesomeIcon icon={faCircleUser} size="xl" />
-            </a>
-            <a>
-              <FontAwesomeIcon icon={faMagnifyingGlass} size="xl" />
-            </a>
-          </div>
-        </nav>
-      </div>
-    </>
-  );
-}
-
-export function SideBar() {
+const SideBar = () => {
   const [list, setList] = useState("");
 
   return (
@@ -47,3 +21,5 @@ export function SideBar() {
     </>
   );
 }
+
+export default SideBar;

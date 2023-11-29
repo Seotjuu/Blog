@@ -1,6 +1,9 @@
 // Sign / Login
 // 로그인 페이지
 
+import { db } from '../firebase';
+import { doc, getDoc } from 'firebase/firestore';
+
 import React, {useState} from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
@@ -33,6 +36,15 @@ export default function Login() {
     }
   };
 
+
+  const getTest = async () => {
+    // document에 대한 참조 생성
+    const docRef = doc(db, "user", "user");
+    // 참조에 대한 Snapshot 쿼리
+    const docSnap = await getDoc(docRef);
+    console.log(docSnap.data());
+  };
+
   return (
     <>
       <div className="Login" style={{ height: "100%" }}>
@@ -51,6 +63,12 @@ export default function Login() {
               로그인
             </button>
           </Link>
+
+          <button onClick={()=>{
+            getTest();
+          }}>
+            DB 접속
+          </button>
         </form>
       </div>
     </>

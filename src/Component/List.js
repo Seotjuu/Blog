@@ -1,5 +1,5 @@
 import React from "react";
-import Content from "../Cmm/Content";
+import Content from "./Content";
 
 export function List1() {
   return (

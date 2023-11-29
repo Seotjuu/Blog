@@ -1,5 +1,5 @@
 // Blog Main 화면
-import Content from "./Cmm/Content";
+import Content from "../Component/Content";
 import { Link } from "react-router-dom";
 
 export default function Main() {
