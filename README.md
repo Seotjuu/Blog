@@ -12,4 +12,4 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 npm run build
 
-<a href="https://seotjuu.github.io/">link</a>
+<a href="https://seotjuu.github.io/Blog/">link</a>
