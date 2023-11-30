@@ -1,22 +1,36 @@
 import React from "react";
+import { Col, Container, Row } from "react-bootstrap";
 
 const ContentHeader = (props) => {
   return (
-    <div className="d-flex border-bottom p-1">
-      <img style={{ width: "100px", height: "100px"}} src="./self_img1.jpg" />
-      &emsp;
-      <div>
-          <h4>게시물 제목 {props.title}</h4>
-          <br>
-          </br>
-          <nav>게시물 목적 {props.sub}</nav>
-      </div>
-    </div>
+    <Container className="border-bottom p-1">
+      <Row>
+        <Col
+          xl="2"
+          lg="2"
+          md="2"
+          sm="2"
+          xs="2"
+        >
+          <img style={{ width: "150px", height: "150px"}} src={props.image} />
+        </Col>
+        <Col
+          xl="8"
+          lg="8"
+          md="8"
+          sm="8"
+          xs="8"
+        >
+          <nav>{props.author}</nav>
+          <h4>{props.title}</h4>
+          <nav>{props.sub}</nav>
+        </Col>
+        <Col className="text-end">
+          {props.date}
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
 export default ContentHeader;
-
-// .main_sidetitle{
-//   width: 100%;
-// }

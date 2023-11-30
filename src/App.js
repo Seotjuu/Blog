@@ -3,6 +3,8 @@ import "./css/Sign.css";
 import Main from "./pages/Main";
 import Login from "./pages/Login";
 import HomePage from "./pages/HomePage";
+import PostRegister from "./pages/PostRegister";
+import PostView from "./pages/PostView";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -15,6 +17,8 @@ const App = () => {
           {/* sideBar 이중 라우터 */}
           <Route exact element={<HomePage />}>
             <Route path="/" element={<Main />}></Route>
+            <Route path="/PostRegister" element={<PostRegister />}></Route>
+            <Route path="/PostView" element={<PostView />}></Route>
           </Route>
         </Routes>
     </>

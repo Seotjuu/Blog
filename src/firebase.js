@@ -1,8 +1,8 @@
 // root 내에 firebase 연동
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApp, FirebaseApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore"
 
-const firebaseConfig = {
+export const firebaseConfig = {
     apiKey: "AIzaSyAmZw_eirEEPd7ousfSGoBae4znVzTzZ98",
     authDomain: "seotjuu-blog.firebaseapp.com",
     projectId: "seotjuu-blog",
@@ -14,6 +14,4 @@ const firebaseConfig = {
   
 const app = initializeApp(firebaseConfig);
 // firestore 객체 생성
-const db = getFirestore(app);
-// firestore export
-export {db}
+export const db = getFirestore(app);
