@@ -39,7 +39,7 @@ const PostView = () => {
           id={postData.id}
           url={postData.url}
         />
-        포스트입니다.
+        {postData.text}
       </Container>
     </>
   );
