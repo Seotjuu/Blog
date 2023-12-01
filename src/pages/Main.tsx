@@ -8,21 +8,32 @@ import { Col, Container, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
+interface IItemList {
+  id: string
+  url: string
+  title: string
+  sub: string
+  author: string
+  date: string
+}
+
 const Main = () => {
   // 버튼으로 페이지 url 이동
   const navigate = useNavigate();
 
-  const [postData, setPostData] = useState([]);
+  const [postData, setPostData] = useState<IItemList[]>([]);
 
   // Firebase 게시물 데이터 가져오기
   const postEvent = async () => {
     // document에 대한 참조 생성
     const querySnapshot = await getDocs(
-      collection(db, process.env.REACT_APP_FIREBASE_COLLECTION)
-    );
-    let itemList = [];
+      collection(db!, process.env.REACT_APP_FIREBASE_COLLECTION!)
+    ); 
+    
+    let itemList: IItemList[] = [];
+    
     querySnapshot.forEach((doc) => {
-      let docData = doc.data();
+      let docData: IItemList = doc.data() as IItemList;
       docData.id = doc.id;
       itemList.push(docData);
     });
@@ -34,7 +45,8 @@ const Main = () => {
       })
       .reverse();
 
-    setPostData(itemList);
+    setPostData(() => itemList);
+    
   };
 
   useEffect(() => {
@@ -63,8 +75,8 @@ const Main = () => {
                   className="text-muted d-flex justify-content-between"
                   style={{ fontSize: "12px" }}
                 >
-                  <a>{post.author}</a>
-                  <a>{post.date}</a>
+                  <span>{post.author}</span>
+                  <span>{post.date}</span>
                 </Card.Footer>
               </Card>
             );

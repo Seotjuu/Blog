@@ -8,17 +8,27 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import dayjs from "dayjs";
 import Swal from "sweetalert2";
 
+interface IInputData {
+  title: string
+  sub: string
+  author: string
+  text: string
+}
+
 const PostRegister = () => {
-  const [inputData, setInputData] = useState({});
+  const [inputData, setInputData] = useState<IInputData>();
   // Firebase 게시물 데이터 가져오기
   const postEvent = async () => {
     try {
-      if (Object.keys(inputData).length < 4) {
-        throw new Error("작성 목록을 확인해주세요 !");
+      // 입력하지 않은 항목이 있으면 에러메세지 출력
+      if(inputData?.title.trim().length == 0 || inputData?.sub.trim().length == 0 || inputData?.author.trim().length == 0 || inputData?.text.trim().length == 0){        
+        throw new Error(`항목을 다시 확인해보세요 ✌`);
       }
-
+      
       // 이미지 스토리지 사용해서 업로드 예정
-      const file = document.querySelector("#image").files[0];
+      const fileInputelement = document.querySelector("#image") as HTMLInputElement;
+      const file = fileInputelement.files![0]
+
       const uploaded_file = await uploadBytes(
         ref(storage, `images/${file.name}`),
         file
@@ -26,7 +36,7 @@ const PostRegister = () => {
       const file_url = await getDownloadURL(uploaded_file.ref);
 
       //////////////////////////
-      await addDoc(collection(db, process.env.REACT_APP_FIREBASE_COLLECTION), {
+      await addDoc(collection(db!, process.env.REACT_APP_FIREBASE_COLLECTION!), {
         ...inputData,
         date: dayjs().format("YYYY-MM-DD HH:mm:ss"),
         url: file_url,
@@ -45,19 +55,22 @@ const PostRegister = () => {
           console.log("데이터 가져오기 실패 !!!!!!!" + e.message);
         });
     } catch (e) {
+      let message = 'Unknown Error'
+      if (e instanceof Error) message = e.message
+
       Swal.fire({
         icon: "warning",
         title: "경고",
-        text: `작성 목록을 확인해주세요 !`,
+        text: message,
         confirmButtonText: "확인",
       });
     }
   };
 
-  const onChangeInput = (e) => {
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setInputData({
-      ...inputData,
+      ...inputData!,
       [name]: value,
     });
   };

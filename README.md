@@ -10,6 +10,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 ## 수정 후 저장
 
-npm run build
+npm run deploy
 
 <a href="https://seotjuu.github.io/Blog/">link</a>

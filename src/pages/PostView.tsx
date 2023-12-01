@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import ContentHeader from "../Component/ContentHeader";
+import ContentHeader, { IHeaderData } from "../Component/ContentHeader";
 
 import { db } from "../firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { DocumentData, doc, getDoc } from "firebase/firestore";
 
 import { Col, Container, Form, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -14,15 +14,22 @@ const PostView = () => {
   const postId = searchParams.get("id");
 
   // post 컬랙션에 해당 문서 데이터
-  const [postData, setPostData] = useState([]);
+  const [postData, setPostData] = useState<IHeaderData>({
+    author: "",
+    sub: "",
+    date: "",
+    title: "",
+    url: "",
+    text: ""
+  });
 
   // Firebase 게시물 데이터 가져오기
   const postEvent = async () => {
     // 컬랙션 내에 문서의 ID에 맞는 데이터 저장
-    const docRef = doc(db, "post", postId);
+    const docRef = doc(db!, "post", postId!);
     const docSnap = await getDoc(docRef);
-
-    setPostData(docSnap.data());
+    
+    setPostData(docSnap.data() as IHeaderData);
   };
   useEffect(() => {
     postEvent();
@@ -32,12 +39,7 @@ const PostView = () => {
     <>
       <Container>
         <ContentHeader
-          title={postData.title}
-          sub={postData.sub}
-          author={postData.author}
-          date={postData.date}
-          id={postData.id}
-          url={postData.url}
+          postData={postData}
         />
         {postData.text}
       </Container>

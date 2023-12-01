@@ -8,14 +8,14 @@ import PostView from "./pages/PostView";
 
 import { Routes, Route } from "react-router-dom";
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <>
         <Routes>
           <Route path="/login" element={<Login />}></Route>
           
           {/* sideBar 이중 라우터 */}
-          <Route exact element={<HomePage />}>
+          <Route element={<HomePage />}>
             <Route path="/" element={<Main />}></Route>
             <Route path="/PostRegister" element={<PostRegister />}></Route>
             <Route path="/PostView" element={<PostView />}></Route>
