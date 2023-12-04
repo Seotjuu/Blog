@@ -9,10 +9,10 @@ import dayjs from "dayjs";
 import Swal from "sweetalert2";
 
 interface IInputData {
-  title: string
-  sub: string
-  author: string
-  text: string
+  title: string;
+  sub: string;
+  author: string;
+  text: string;
 }
 
 const PostRegister = () => {
@@ -21,13 +21,20 @@ const PostRegister = () => {
   const postEvent = async () => {
     try {
       // 입력하지 않은 항목이 있으면 에러메세지 출력
-      if(inputData?.title.trim().length == 0 || inputData?.sub.trim().length == 0 || inputData?.author.trim().length == 0 || inputData?.text.trim().length == 0){        
+      if (
+        inputData?.title.trim().length == 0 ||
+        inputData?.sub.trim().length == 0 ||
+        inputData?.author.trim().length == 0 ||
+        inputData?.text.trim().length == 0
+      ) {
         throw new Error(`항목을 다시 확인해보세요 ✌`);
       }
-      
+
       // 이미지 스토리지 사용해서 업로드 예정
-      const fileInputelement = document.querySelector("#image") as HTMLInputElement;
-      const file = fileInputelement.files![0]
+      const fileInputelement = document.querySelector(
+        "#image"
+      ) as HTMLInputElement;
+      const file = fileInputelement.files![0];
 
       const uploaded_file = await uploadBytes(
         ref(storage, `images/${file.name}`),
@@ -36,11 +43,14 @@ const PostRegister = () => {
       const file_url = await getDownloadURL(uploaded_file.ref);
 
       //////////////////////////
-      await addDoc(collection(db!, process.env.REACT_APP_FIREBASE_COLLECTION!), {
-        ...inputData,
-        date: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-        url: file_url,
-      })
+      await addDoc(
+        collection(db!, process.env.REACT_APP_FIREBASE_COLLECTION!),
+        {
+          ...inputData,
+          date: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+          url: file_url,
+        }
+      )
         .then((res) => {
           Swal.fire({
             icon: "success",
@@ -55,8 +65,8 @@ const PostRegister = () => {
           console.log("데이터 가져오기 실패 !!!!!!!" + e.message);
         });
     } catch (e) {
-      let message = 'Unknown Error'
-      if (e instanceof Error) message = e.message
+      let message = "";
+      if (e instanceof Error) message = e.message;
 
       Swal.fire({
         icon: "warning",
