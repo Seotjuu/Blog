@@ -14,10 +14,6 @@ const TopNavBar = () => {
   // 버튼으로 페이지 url 이동
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(CheckUser());
-
-  console.log(location.pathname);
-
   return (
     <>
       {/* NavBar */}
