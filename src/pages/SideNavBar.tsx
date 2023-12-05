@@ -40,87 +40,85 @@ const SideNavBar = (props: IProps) => {
 
   return (
     <>
-      <Container className="mt-5">
+      <Col className="nav-btn-group border">
         <Row>
-          <Col xs="2" sm="2" md="2" className="nav-btn-group border">
-              <Col className="text-center">
+          <Col className="text-center">
+            <Button
+              className="nav-btn"
+              variant="primary"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              <FontAwesomeIcon icon={faHouse} />
+            </Button>
+          </Col>
+          <Col className="text-center">
+            <Button
+              className="nav-btn"
+              variant="success"
+              onClick={() => {
+                navigate("/PostRegister");
+              }}
+            >
+              <FontAwesomeIcon icon={faPenToSquare} />
+            </Button>
+          </Col>
+          {location.pathname == "/" && (
+            <Col className="text-center">
+              {postCheck.trash && (
                 <Button
                   className="nav-btn"
-                  variant="primary"
+                  variant="secondary"
                   onClick={() => {
-                    navigate("/");
+                    setPostCheck({
+                      trash: false,
+                      check: true,
+                    });
                   }}
                 >
-                  <FontAwesomeIcon icon={faHouse} />
+                  <FontAwesomeIcon icon={faTrash} />
                 </Button>
-              </Col>
-              <Col className="text-center">
-                <Button
-                  className="nav-btn"
-                  variant="success"
-                  onClick={() => {
-                    navigate("/PostRegister");
-                  }}
-                >
-                  <FontAwesomeIcon icon={faPenToSquare} />
-                </Button>
-              </Col>
-              {location.pathname == "/" && (
-                <div className="text-center">
-                  {postCheck.trash && (
-                    <Button
-                      className="nav-btn"
-                      variant="secondary"
-                      onClick={() => {
-                        setPostCheck({
-                          trash: false,
-                          check: true,
-                        });
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faTrash} />
-                    </Button>
-                  )}
-                  {postCheck.check && (
-                    <>
-                      <Button
-                        className="nav-btn"
-                        variant="primary"
-                        onClick={() => {
-                          setPostCheck({
-                            trash: true,
-                            check: false,
-                          });
-                          props.delItemHandelr(true);
-                        }}
-                      >
-                        <FontAwesomeIcon icon={faCheck} />
-                      </Button>
-                      <Button
-                        className="nav-btn"
-                        variant="danger"
-                        onClick={() => {
-                          console.log("삭제 취소");
-                          setPostCheck({
-                            trash: true,
-                            check: false,
-                          });
-                        }}
-                      >
-                        <FontAwesomeIcon icon={faX} />
-                      </Button>
-                    </>
-                  )}
+              )}
+              {postCheck.check && (
+                <div className="d-flex">
+                  <Button
+                    className="nav-btn"
+                    variant="primary"
+                    onClick={() => {
+                      setPostCheck({
+                        trash: true,
+                        check: false,
+                      });
+                      props.delItemHandelr(true);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faCheck} />
+                  </Button>
+                  <Button
+                    className="nav-btn"
+                    variant="danger"
+                    onClick={() => {
+                      console.log("삭제 취소");
+                      setPostCheck({
+                        trash: true,
+                        check: false,
+                      });
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faX} />
+                  </Button>
                 </div>
               )}
-          </Col>
-
-          <Col className="border">
-            {/* Outlet */}
-            <Outlet />
-          </Col>
+            </Col>
+          )}
         </Row>
-      </Container>
+      </Col>
+
+      <Col className="border">
+        {/* Outlet */}
+        <Outlet />
+      </Col>
     </>
   );
 };

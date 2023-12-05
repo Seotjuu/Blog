@@ -8,7 +8,7 @@ import { doc, collection, getDocs, deleteDoc } from "firebase/firestore";
 import { faCircleCheck, faCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { Col, Container, Row } from "react-bootstrap";
+import { Form, Col, Container, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
@@ -70,6 +70,11 @@ const Main = (props: IProps) => {
     }
   };
 
+  // select box 
+  const changeSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+        
+  }
   useEffect(() => {
     postEvent();
     if (props.postDel) {
@@ -81,55 +86,68 @@ const Main = (props: IProps) => {
   }, [props.postDel, props.delCheck]);
 
   return (
-    <Container className="d-flex flex-wrap">
-      {postData &&
-        postData.map((post, key) => {
-          return (
-            <Card style={{ width: "15rem", margin: "5px" }} key={key}>
-              <Card.Img
-                variant="top"
-                src={post.url || ""}
-                onClick={() => {
-                  navigate(`/PostView?id=${post.id}`);
-                }}
-              />
-              {!props.postDel && (
-                <Button
-                  variant={delItem.includes(post.id) ? "danger" : "dark"}
-                  onClick={() => {
-                    if (delItem.includes(post.id)) {
-                      setDelItem(delItem.filter((d) => d != post.id));
-                    } else {
-                      setDelItem([...delItem, post.id]);
-                    }
-                  }}
-                  style={{ position: "absolute", top: "5px", right: "5px" }}
-                >
-                  <FontAwesomeIcon
-                    icon={delItem.includes(post.id) ? faCircleCheck : faCircle}
-                    size="xl"
+    <>
+      <Container>
+        <Row>
+          <Col className="d-flex flex-row-reverse">
+            <Form.Select className="sort-btn mt-2" style={{width: "90px"}}
+              // onChange={changeSelect}
+            >
+              <option value={"date"}>날짜</option>
+              <option value={"name"}>이름</option>
+              <option value={"title"}>제목</option>
+            </Form.Select>
+          </Col>
+        </Row>
+
+        <div className="post-list" >
+          {postData &&
+            postData.map((post, key) => {
+              return (
+                <Card className="main-card" key={key}>
+                  <Card.Img
+                    variant="top"
+                    src={post.url || ""}
+                    onClick={() => {
+                      navigate(`/PostView?id=${post.id}`);
+                    }}
                   />
-                </Button>
-              )}
-              <Card.Body
-                onClick={() => {
-                  navigate(`/PostView?id=${post.id}`);
-                }}
-              >
-                <Card.Title>{post.title}</Card.Title>
-                <Card.Text>{post.sub}</Card.Text>
-              </Card.Body>
-              <Card.Footer
-                className="text-muted d-flex justify-content-between"
-                style={{ fontSize: "12px" }}
-              >
-                <span>{post.author}</span>
-                <span>{post.date.slice(0,10)}</span>
-              </Card.Footer>
-            </Card>
-          );
-        })}
-    </Container>
+                  {!props.postDel && (
+                    <FontAwesomeIcon
+                      icon={delItem.includes(post.id) ? faCircleCheck : faCircle}
+                      size="xl"
+                      onClick={() => {
+                        if (delItem.includes(post.id)) {
+                          setDelItem(delItem.filter((d) => d != post.id));
+                        } else {
+                          setDelItem([...delItem, post.id]);
+                        }
+                      }}
+                      className="border rounded-circle"
+                      style={{ position: "absolute", top: "5px", right: "5px", backgroundColor: "white", color: `${delItem.includes(post.id) ? "#0d6efd" : "white"}` }}
+                    />
+                  )}
+                  <Card.Body
+                    onClick={() => {
+                      navigate(`/PostView?id=${post.id}`);
+                    }}
+                  >
+                    <Card.Title>{post.title}</Card.Title>
+                    <Card.Text>{post.sub}</Card.Text>
+                  </Card.Body>
+                  <Card.Footer
+                    className="text-muted d-flex justify-content-between"
+                    style={{ fontSize: "12px" }}
+                  >
+                    <span>{post.author}</span>
+                    <span>{post.date.slice(0,10)}</span>
+                  </Card.Footer>
+                </Card>
+              );
+            })}
+        </div>
+      </Container>
+    </>
   );
 };
 
