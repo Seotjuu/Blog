@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { db, storage } from "../firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, or } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
@@ -21,26 +21,33 @@ const PostRegister = () => {
   const postEvent = async () => {
     try {
       // 입력하지 않은 항목이 있으면 에러메세지 출력
-      if (
-        inputData?.title.trim().length == 0 ||
-        inputData?.sub.trim().length == 0 ||
-        inputData?.author.trim().length == 0 ||
-        inputData?.text.trim().length == 0
-      ) {
-        throw new Error(`항목을 다시 확인해보세요 ✌`);
+      if(inputData?.title === undefined){
+        throw new Error(`제목을 작성해주세요 🤔`);
+      }
+      if(inputData?.author === undefined){
+        throw new Error(`작성자를 작성해주세요 😐`);
+      }
+      if(inputData?.text === undefined){
+        throw new Error(`내용을 작성해주세요 😑`);
       }
 
       // 이미지 스토리지 사용해서 업로드 예정
       const fileInputelement = document.querySelector(
         "#image"
       ) as HTMLInputElement;
-      const file = fileInputelement.files![0];
+      let file;
+      let uploaded_file;
+      let file_url;
 
-      const uploaded_file = await uploadBytes(
-        ref(storage, `images/${file.name}`),
-        file
-      );
-      const file_url = await getDownloadURL(uploaded_file.ref);
+      if(fileInputelement.files![0]){
+        file = fileInputelement.files![0];
+
+        uploaded_file = await uploadBytes(
+          ref(storage, `images/${file.name}`),
+          file
+        );
+        file_url = await getDownloadURL(uploaded_file.ref);
+      }
 
       //////////////////////////
       await addDoc(
@@ -48,7 +55,7 @@ const PostRegister = () => {
         {
           ...inputData,
           date: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-          url: file_url,
+          url: file_url || "",
         }
       )
         .then((res) => {
@@ -57,6 +64,7 @@ const PostRegister = () => {
             title: "완료",
             text: `게시물 등록이 완료되었습니다 !`,
             confirmButtonText: "완료",
+            confirmButtonColor: '#3085d6',
           }).then((res) => {
             window.location.replace("/Blog");
           });
@@ -73,6 +81,7 @@ const PostRegister = () => {
         title: "경고",
         text: message,
         confirmButtonText: "확인",
+        confirmButtonColor: '#3085d6',
       });
     }
   };
@@ -89,16 +98,16 @@ const PostRegister = () => {
     <>
       <Container>
         <Form>
-          <Form.Label>제목</Form.Label>
+          <Form.Label>제목</Form.Label>*
           <Form.Control name="title" type="text" onChange={onChangeInput} />
 
           <Form.Label>부제목</Form.Label>
           <Form.Control name="sub" type="text" onChange={onChangeInput} />
 
-          <Form.Label>작성자</Form.Label>
+          <Form.Label>작성자</Form.Label>*
           <Form.Control name="author" type="text" onChange={onChangeInput} />
 
-          <Form.Label>게시물 내용</Form.Label>
+          <Form.Label>내용</Form.Label>*
           <Form.Control
             name="text"
             as="textarea"

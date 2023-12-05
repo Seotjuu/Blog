@@ -19,7 +19,9 @@ const TopNavBar = () => {
       {/* NavBar */}
       <Navbar className="bg-body-tertiary">
         <Container>
-          <Navbar.Brand href="/Blog">Blog</Navbar.Brand>
+          <Navbar.Brand onClick={()=>{
+            navigate('/')
+          }}>Blog</Navbar.Brand>
           <Navbar.Collapse className="justify-content-end">
             <a href="https://github.com/Seotjuu" style={{ color: "black" }}>
               <FontAwesomeIcon icon={faGithub} size="xl" />

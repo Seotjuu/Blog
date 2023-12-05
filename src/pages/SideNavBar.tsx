@@ -7,6 +7,7 @@ import {
   faPenToSquare,
   faX,
   faCheck,
+  faHouse,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // user 함수
@@ -41,22 +42,34 @@ const SideNavBar = (props: IProps) => {
     <>
       <Container className="mt-5">
         <Row>
-          <Col xs="2" className="border">
-            <Row className="justify-center">
-              <Col xl="5" lg="5" md="5" sm="5" xs="5" className="text-center">
+          <Col xs="2" sm="2" md="2" className="nav-btn-group border">
+              <Col className="text-center">
                 <Button
+                  className="nav-btn"
+                  variant="primary"
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
+                  <FontAwesomeIcon icon={faHouse} />
+                </Button>
+              </Col>
+              <Col className="text-center">
+                <Button
+                  className="nav-btn"
                   variant="success"
                   onClick={() => {
                     navigate("/PostRegister");
                   }}
                 >
-                  <FontAwesomeIcon icon={faPenToSquare} size="xl" />
+                  <FontAwesomeIcon icon={faPenToSquare} />
                 </Button>
               </Col>
               {location.pathname == "/" && (
-                <Col xl="7" lg="7" md="7" sm="7" xs="7" className="text-center">
+                <div className="text-center">
                   {postCheck.trash && (
                     <Button
+                      className="nav-btn"
                       variant="secondary"
                       onClick={() => {
                         setPostCheck({
@@ -65,12 +78,13 @@ const SideNavBar = (props: IProps) => {
                         });
                       }}
                     >
-                      <FontAwesomeIcon icon={faTrash} size="xl" />
+                      <FontAwesomeIcon icon={faTrash} />
                     </Button>
                   )}
                   {postCheck.check && (
                     <>
                       <Button
+                        className="nav-btn"
                         variant="primary"
                         onClick={() => {
                           setPostCheck({
@@ -80,9 +94,10 @@ const SideNavBar = (props: IProps) => {
                           props.delItemHandelr(true);
                         }}
                       >
-                        <FontAwesomeIcon icon={faCheck} size="lg" />
+                        <FontAwesomeIcon icon={faCheck} />
                       </Button>
                       <Button
+                        className="nav-btn"
                         variant="danger"
                         onClick={() => {
                           console.log("삭제 취소");
@@ -92,24 +107,14 @@ const SideNavBar = (props: IProps) => {
                           });
                         }}
                       >
-                        <FontAwesomeIcon icon={faX} size="xl" />
+                        <FontAwesomeIcon icon={faX} />
                       </Button>
                     </>
                   )}
-                </Col>
+                </div>
               )}
-            </Row>
-
-            {/* SideBar */}
-            <div>
-              <div className="border-bottom">글 목록</div>
-              <ul>
-                <li>
-                  <Link to="/">홈으로 가기</Link>
-                </li>
-              </ul>
-            </div>
           </Col>
+
           <Col className="border">
             {/* Outlet */}
             <Outlet />

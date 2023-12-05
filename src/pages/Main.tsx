@@ -85,10 +85,10 @@ const Main = (props: IProps) => {
       {postData &&
         postData.map((post, key) => {
           return (
-            <Card style={{ width: "15rem", margin: "11px" }} key={key}>
+            <Card style={{ width: "15rem", margin: "5px" }} key={key}>
               <Card.Img
                 variant="top"
-                src={post.url}
+                src={post.url || ""}
                 onClick={() => {
                   navigate(`/PostView?id=${post.id}`);
                 }}
@@ -124,7 +124,7 @@ const Main = (props: IProps) => {
                 style={{ fontSize: "12px" }}
               >
                 <span>{post.author}</span>
-                <span>{post.date}</span>
+                <span>{post.date.slice(0,10)}</span>
               </Card.Footer>
             </Card>
           );
