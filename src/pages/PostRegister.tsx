@@ -17,6 +17,10 @@ interface IInputData {
 
 const PostRegister = () => {
   const [inputData, setInputData] = useState<IInputData>();
+
+  // submit 중복 클릭 방지
+  const [isClicked, setIsClicked] = useState(false);
+
   // Firebase 게시물 데이터 가져오기
   const postEvent = async () => {
     try {
@@ -50,6 +54,7 @@ const PostRegister = () => {
       }
 
       //////////////////////////
+      setIsClicked(true);
       await addDoc(
         collection(db!, process.env.REACT_APP_FIREBASE_COLLECTION!),
         {
@@ -117,9 +122,9 @@ const PostRegister = () => {
 
           <Form.Label>이미지</Form.Label>
           <Form.Control id="image" type="file" />
-
           <Button
             variant="primary"
+            disabled={isClicked}
             onClick={() => {
               postEvent();
             }}

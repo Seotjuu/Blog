@@ -32,6 +32,8 @@ const Main = (props: IProps) => {
 
   const [postData, setPostData] = useState<IItemList[]>([]);
   const [delItem, setDelItem] = useState<string[]>([]);
+  const [postSort, setPostSort] = useState<string>("date");
+  const [allDelete, setAllDelete] = useState(false);
   // Firebase 게시물 데이터 가져오기
   const postEvent = async () => {
     // document에 대한 참조 생성
@@ -46,13 +48,26 @@ const Main = (props: IProps) => {
       docData.id = doc.id;
       itemList.push(docData);
     });
-
-    // 날짜 최신순으로 정렬
-    itemList = itemList
+    
+    // 이름 오름차순
+    if(postSort === "name"){
+      itemList = itemList.sort((a, b) => {
+        return a.author > b.author ? 1 : -1;
+      })
+    }
+    // 제목 오름차순
+    else if(postSort === "title"){
+      itemList = itemList.sort((a, b) => {
+        return a.title > b.title ? 1 : -1;
+      })
+    }
+    else{ // 기본값 날짜 최신순으로
+      itemList = itemList
       .sort((a, b) => {
         return new Date(a.date).getTime() - new Date(b.date).getTime();
       })
       .reverse();
+    }
 
     setPostData(() => itemList);
   };
@@ -71,27 +86,72 @@ const Main = (props: IProps) => {
   };
 
   // select box 
-  const changeSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-        
+  const changeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setPostSort(e.target.value)        
   }
-  useEffect(() => {
-    postEvent();
-    if (props.postDel) {
+
+  const changeChoice = (value: boolean) => {    
+    // 전체 선택 버튼을 눌렀을 때
+    if (value) {
+      setDelItem(postData.map((post) => post.id));
+    }
+    // 전체 선택 해제 버튼 눌렀을 때
+    else{
       setDelItem([]);
     }
-    if (props.delCheck) {
+  }
+  
+  useEffect(() => {
+    // firebase 데이터 가져오기
+    postEvent();
+
+    // 삭제하기 선택 후 확인을 눌렀을 때
+    if (props.delCheck && delItem.length) {
       postDelHandler();
+    }    
+  }, [props.delCheck, postSort, allDelete]);
+
+  useEffect(() => {
+    // 삭제하기 버튼을 눌렀을 때
+    setAllDelete(false);
+
+    if (props.postDel) {      
+      setDelItem([]);
     }
-  }, [props.postDel, props.delCheck]);
+  }, [props.postDel])
+
+  useEffect(() => {
+    // 개별로 전체 선택했을 때
+    if(postData.length === delItem.length) {     
+      setAllDelete(true);
+    }
+    // 전체 선택 후 개별로 취소했을 때
+    else{
+      setAllDelete(false);
+    }    
+  }, [delItem])
 
   return (
     <>
-      <Container>
-        <Row>
+      <Container className="px-4">
+        <Row className="mt-2">
+          { postData.length && !props.postDel &&
+            <Col>
+              <Button variant="secondary" size="sm"
+                onClick={(e)=>{
+                  setAllDelete(!allDelete);
+                  changeChoice(!allDelete)
+                }}
+              >
+                {allDelete ? "전체 선택 해제" : "전체 선택"}
+              </Button>
+            </Col>
+            || ""
+          }
+
           <Col className="d-flex flex-row-reverse">
-            <Form.Select className="sort-btn mt-2" style={{width: "90px"}}
-              // onChange={changeSelect}
+            <Form.Select size="sm" className="sort-btn" style={{width: "90px"}}
+              onChange={changeSelect}
             >
               <option value={"date"}>날짜</option>
               <option value={"name"}>이름</option>
@@ -116,7 +176,7 @@ const Main = (props: IProps) => {
                     <FontAwesomeIcon
                       icon={delItem.includes(post.id) ? faCircleCheck : faCircle}
                       size="xl"
-                      onClick={() => {
+                      onClick={() => {                        
                         if (delItem.includes(post.id)) {
                           setDelItem(delItem.filter((d) => d != post.id));
                         } else {

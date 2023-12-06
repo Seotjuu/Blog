@@ -40,7 +40,7 @@ const SideNavBar = (props: IProps) => {
 
   return (
     <>
-      <Col className="nav-btn-group border">
+      <Col className="nav-btn-group p-2">
         <Row>
           <Col className="text-center">
             <Button
@@ -99,7 +99,6 @@ const SideNavBar = (props: IProps) => {
                     className="nav-btn"
                     variant="danger"
                     onClick={() => {
-                      console.log("삭제 취소");
                       setPostCheck({
                         trash: true,
                         check: false,
