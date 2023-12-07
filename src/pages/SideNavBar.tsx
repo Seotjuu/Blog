@@ -114,7 +114,7 @@ const SideNavBar = (props: IProps) => {
         </Row>
       </Col>
 
-      <Col className="border">
+      <Col className="border-top">
         {/* Outlet */}
         <Outlet />
       </Col>
